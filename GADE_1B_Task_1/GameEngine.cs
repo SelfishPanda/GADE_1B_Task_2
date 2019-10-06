@@ -17,13 +17,15 @@ namespace GADE_1B_Task_1
         public GameEngine()
         {
             map = new Map(2,4);
-           
+            map.RandomBattlefield();
             this.arrUnits = map.arrUnits;
-                gameRounds = 0;
-            
-           
-        }
+            gameRounds = 0;
 
+
+
+        }
+        
+              
 
         //Direction in wich to move
         public string Direction(unit Main, unit Enemy)
@@ -99,28 +101,28 @@ namespace GADE_1B_Task_1
             death = false;
             
             OutputString = "";
-            for (int i = 0; i < arrUnits.Length; i++)
+            for (int i = 0; i < this.arrUnits.Length; i++)
             {
                
 
                
                    
 
-                    death = arrUnits[i].Death();
+                    death = this.arrUnits[i].Death();
                     if (death == true)
-                    { arrUnits[i].HP = 0; }
+                    { this.arrUnits[i].HP = 0; }
                     else
                     {
 
                         unit closestunit;
-                        closestunit = arrUnits[i].ClosestUnit(arrUnits);
-                        if (arrUnits[i] == closestunit)
+                        closestunit = this.arrUnits[i].ClosestUnit(arrUnits);
+                        if (this.arrUnits[i] == closestunit)
                         { }
                         else
                         {
 
-                            arrUnits[i].AttackRange(closestunit);
-                            if (arrUnits[i].HP<= (arrUnits[i].maxHP*0.25))
+                        this.arrUnits[i].AttackRange(closestunit);
+                            if (this.arrUnits[i].HP<= (this.arrUnits[i].maxHP*0.25))
                             {
                                 string randomDirection;
                                 int random;
@@ -144,33 +146,33 @@ namespace GADE_1B_Task_1
                                     randomDirection = "down";
                                 }
 
-                                arrUnits[i].Move(randomDirection);
+                            this.arrUnits[i].Move(randomDirection);
 
-                            arrUnits[i].HP += 2;
+                            this.arrUnits[i].HP += 2;
                             }
                             else
                             {
 
 
-                                if (arrUnits[i].isAttacking == true)
+                                if (this.arrUnits[i].isAttacking == true)
                                 {
-                                    arrUnits[i].Combat(closestunit);
+                                this.arrUnits[i].Combat(closestunit);
                                 }
                                 else
                                 {
                                     int oldX, oldY;
-                                    oldX = arrUnits[i].xPos;
-                                    oldY = arrUnits[i].yPos;
-                                    direction = Direction(arrUnits[i], closestunit);
-                                    arrUnits[i].Move(direction);
-                                    map.MapUpdate(arrUnits[i], oldX,oldY);
+                                    oldX = this.arrUnits[i].xPos;
+                                    oldY = this.arrUnits[i].yPos;
+                                    direction = Direction(this.arrUnits[i], closestunit);
+                                this.arrUnits[i].Move(direction);
+                                    map.MapUpdate(this.arrUnits[i], oldX,oldY);
                                     
                                 }
                             }
 
                         }
                     }
-                    OutputString += "\n" + arrUnits[i].ToString();
+                    OutputString += "\n" + this.arrUnits[i].ToString();
                 
                 
 
@@ -210,8 +212,9 @@ namespace GADE_1B_Task_1
                         if ((gameRounds % building.productionSpeed) == 0)
                         {
 
-                            Array.Resize(ref arrUnits, arrUnits.Length + 1); ;
-                            arrUnits[arrUnits.Length-1] = building.CreateUnit();
+                            Array.Resize(ref this.arrUnits, this.arrUnits.Length + 1); ;
+                            this.arrUnits[this.arrUnits.Length-1] = building.CreateUnit();
+                            
                         }
 
                     }
