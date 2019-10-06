@@ -89,6 +89,7 @@ namespace GADE_1B_Task_1
         //
         public void GameLogic(unit[] arrUnits)
         {
+            
             gameRounds++;
             Random rnd = new Random();
             bool death;
